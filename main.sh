@@ -23,7 +23,7 @@ SCRIPT_DIR=$(dirname -- "$(readlink -f "${BASH_SOURCE[0]}" || realpath "${BASH_S
 main() {
     owner=$(cut -d '/' -f 1 <<< "$GITHUB_REPOSITORY")
     repo=$(cut -d '/' -f 2 <<< "$GITHUB_REPOSITORY")
-
+echo "${INPUT_CHARTS_DIR?Input 'charts_dir' is required}"
     args=(--owner "$owner" --repo "$repo")
     args+=(--charts-dir "${INPUT_CHARTS_DIR?Input 'charts_dir' is required}")
 
@@ -34,7 +34,7 @@ main() {
     if [[ -n "${INPUT_CHARTS_REPO_URL:-}" ]]; then
         args+=(--charts-repo-url "${INPUT_CHARTS_REPO_URL}")
     fi
-echo "${args[@]}"
+
     "$SCRIPT_DIR/cr.sh" "${args[@]}"
 }
 
